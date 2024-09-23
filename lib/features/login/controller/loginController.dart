@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/core/utils/shared/component/widgets/customToast.dart';
 import 'package:myapp/features/login/model/loginModel.dart';
+import 'package:myapp/features/login/repository/LoginRepository.dart';
 
 class LoginController extends ChangeNotifier {
   TextEditingController phone = TextEditingController();
@@ -14,7 +15,7 @@ class LoginController extends ChangeNotifier {
     notifyListeners();
   }
 
-   final _api = LoginRepository();
+  final _api = LoginRepository();
   var loginModel = LoginModel();
   Future<void> userLoginApi() async {
     try {

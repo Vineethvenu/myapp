@@ -83,7 +83,24 @@ class _LoginPageState extends State<LoginPage> {
             _customBtn(
                 width: double.infinity,
                 height: 35 / h * h,
-                text: "Login",
+                child: _loginController.isLoading
+                    ? Center(
+                        child: SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: const CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    : Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                          fontFamily: "poppinsSemiBold",
+                        ),
+                      ),
                 onPressed: () {
                   if (_loginController.phone.text.isEmpty) {
                     CustomToast.showCustomErrorToast(
@@ -91,7 +108,16 @@ class _LoginPageState extends State<LoginPage> {
                   } else if (_loginController.password.text.isEmpty) {
                     CustomToast.showCustomErrorToast(
                         message: "Password should not be empty");
-                  } else {}
+                  } else {
+                    _loginController.userLoginApi().then((value) {
+                      if (_loginController.loginModel.success == 200) {
+                        Navigator.pushNamed(context, '/dashBoardHome');
+                      }
+                      CustomToast.showCustomErrorToast(
+                          message:
+                              "Token ${_loginController.loginModel.customerdata!.token ?? "no token found!"}");
+                    });
+                  }
                 }),
           ],
         ),
@@ -149,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _customBtn({
     required double width,
     required double height,
-    required String text,
+    required Widget child,
     required Function() onPressed,
   }) {
     return Material(
@@ -161,19 +187,13 @@ class _LoginPageState extends State<LoginPage> {
         onTap: onPressed,
         splashColor: Colors.black.withOpacity(0.3),
         child: Container(
-          height: height,
-          width: width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: AppColor.btnColor,
-          ),
-          child: Center(
-            child: Text(
-              text,
-              style: const TextStyle(color: AppColor.whiteTxt, fontSize: 14),
+            height: height,
+            width: width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: AppColor.btnColor,
             ),
-          ),
-        ),
+            child: child),
       ),
     );
   }

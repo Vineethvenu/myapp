@@ -18,8 +18,8 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => Logincontroller(),
-        ),
+          create: (context) => LoginController(),
+        )
       ],
       builder: (context, child) {
         return MaterialApp.router(
