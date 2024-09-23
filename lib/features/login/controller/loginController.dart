@@ -29,6 +29,7 @@ class LoginController extends ChangeNotifier {
 
       if (response != null && response['status'] == 200) {
         loginModel = LoginModel.fromJson(response['data']);
+        notifyListeners();
         CustomToast.showCustomToast(message: "Login successful");
         notifyListeners();
       } else if (response != null && response['status'] == 400) {

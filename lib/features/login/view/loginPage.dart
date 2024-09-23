@@ -93,15 +93,18 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       )
-                    : Text(
-                        'Login',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                          fontFamily: "poppinsSemiBold",
+                    : Center(
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                            fontFamily: "poppinsSemiBold",
+                          ),
                         ),
                       ),
                 onPressed: () {
+                  print("AAAAAAAAAAAAAAAAAA");
                   if (_loginController.phone.text.isEmpty) {
                     CustomToast.showCustomErrorToast(
                         message: "Phone number should not be empty");
