@@ -104,8 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                 onPressed: () {
-                  print("AAAAAAAAAAAAAAAAAA");
-                  if (loginController.phone.text.isEmpty) {
+                                    if (loginController.phone.text.isEmpty) {
                     CustomToast.showCustomErrorToast(
                         message: "Phone number should not be empty");
                   } else if (loginController.password.text.isEmpty) {
@@ -113,9 +112,6 @@ class _LoginPageState extends State<LoginPage> {
                         message: "Password should not be empty");
                   } else {
                     loginController.userLoginApi().then((value) {
-                      if (loginController.loginModel.success == 200) {
-                        Navigator.pushNamed(context, '/dashBoardHome');
-                      }
                       CustomToast.showCustomErrorToast(
                           message:
                               "Token ${loginController.loginModel.customerdata!.token ?? "no token found!"}");

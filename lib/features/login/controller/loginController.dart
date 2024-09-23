@@ -26,19 +26,25 @@ class LoginController extends ChangeNotifier {
         "password": password.text.trim()
       };
       final response = await _api.loginApi(data);
-
       if (response != null && response['status'] == 200) {
         loginModel = LoginModel.fromJson(response['data']);
         notifyListeners();
-        CustomToast.showCustomToast(message: "Login successful");
-        notifyListeners();
+        if (loginModel.success == 0) {
+          CustomToast.showCustomToast(
+              message: "Login Failed : ${loginModel.message ?? ''}");
+          notifyListeners();
+        } else if (loginModel.success == 1) {
+          CustomToast.showCustomErrorToast(
+              message: "Login Successful: ${loginModel.message ?? ''}");
+          notifyListeners();
+        }
       } else if (response != null && response['status'] == 400) {
         loginModel = LoginModel.fromJson(response['data']);
         CustomToast.showCustomToast(
             message: "Login failed: ${loginModel.message ?? ''}");
         notifyListeners();
       } else {
-        CustomToast.showCustomToast(message: "Unexpected error occurred");
+        CustomToast.showCustomErrorToast(message: "Unexpected error occurred");
         notifyListeners();
       }
     } catch (e) {
