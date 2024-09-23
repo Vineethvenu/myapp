@@ -34,9 +34,11 @@ class LoginController extends ChangeNotifier {
               message: "Login Failed : ${loginModel.message ?? ''}");
           notifyListeners();
         } else if (loginModel.success == 1) {
-          CustomToast.showCustomErrorToast(
+          CustomToast.showCustomToast(
               message: "Login Successful: ${loginModel.message ?? ''}");
           notifyListeners();
+          if(loginModel.customerdata!.token != null &&  loginModel.customerdata!.token!.isNotEmpty){
+
         }
       } else if (response != null && response['status'] == 400) {
         loginModel = LoginModel.fromJson(response['data']);
