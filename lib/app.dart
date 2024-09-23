@@ -20,7 +20,6 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (context) => Logincontroller(),
         ),
-     
       ],
       builder: (context, child) {
         return MaterialApp.router(
