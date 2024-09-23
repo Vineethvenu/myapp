@@ -16,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
-    final _loginController = Provider.of<LoginController>(context);
+    final loginController = Provider.of<LoginController>(context);
     return Scaffold(
       body: Container(
         color: AppColor.whiteTxt,
@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
               child: _customTextField(
                 labelTxt: "Phone Number",
                 hintTxt: "Enter phone number",
-                controller: _loginController.phone,
+                controller: loginController.phone,
                 keyboardType: TextInputType.number,
                 labelTxtStyle: const TextStyle(
                   fontSize: 12,
@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
               child: _customTextField(
                 labelTxt: "Password",
                 hintTxt: "Enter password",
-                controller: _loginController.password,
+                controller: loginController.password,
                 keyboardType: TextInputType.name,
                 labelTxtStyle: const TextStyle(
                   fontSize: 12,
@@ -66,14 +66,14 @@ class _LoginPageState extends State<LoginPage> {
                   fontSize: 12,
                   color: AppColor.txtColor,
                 ),
-                obscureText: _loginController.passwordVisible,
+                obscureText: loginController.passwordVisible,
                 suffixIcon: IconButton(
                   icon: Icon(
-                    _loginController.passwordVisible
+                    loginController.passwordVisible
                         ? Icons.visibility
                         : Icons.visibility_off,
                   ),
-                  onPressed: _loginController.toggle,
+                  onPressed: loginController.toggle,
                 ),
               ),
             ),
@@ -83,17 +83,17 @@ class _LoginPageState extends State<LoginPage> {
             _customBtn(
                 width: double.infinity,
                 height: 35 / h * h,
-                child: _loginController.isLoading
-                    ? Center(
+                child: loginController.isLoading
+                    ? const Center(
                         child: SizedBox(
                           height: 20,
                           width: 20,
-                          child: const CircularProgressIndicator(
+                          child: CircularProgressIndicator(
                             color: Colors.white,
                           ),
                         ),
                       )
-                    : Center(
+                    : const Center(
                         child: Text(
                           'Login',
                           style: TextStyle(
@@ -105,20 +105,20 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                 onPressed: () {
                   print("AAAAAAAAAAAAAAAAAA");
-                  if (_loginController.phone.text.isEmpty) {
+                  if (loginController.phone.text.isEmpty) {
                     CustomToast.showCustomErrorToast(
                         message: "Phone number should not be empty");
-                  } else if (_loginController.password.text.isEmpty) {
+                  } else if (loginController.password.text.isEmpty) {
                     CustomToast.showCustomErrorToast(
                         message: "Password should not be empty");
                   } else {
-                    _loginController.userLoginApi().then((value) {
-                      if (_loginController.loginModel.success == 200) {
+                    loginController.userLoginApi().then((value) {
+                      if (loginController.loginModel.success == 200) {
                         Navigator.pushNamed(context, '/dashBoardHome');
                       }
                       CustomToast.showCustomErrorToast(
                           message:
-                              "Token ${_loginController.loginModel.customerdata!.token ?? "no token found!"}");
+                              "Token ${loginController.loginModel.customerdata!.token ?? "no token found!"}");
                     });
                   }
                 }),

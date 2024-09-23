@@ -10,19 +10,19 @@ class LoginModel {
     success = json['success'];
     message = json['message'];
     customerdata = json['customerdata'] != null
-        ? new Customerdata.fromJson(json['customerdata'])
+        ? Customerdata.fromJson(json['customerdata'])
         : null;
     guestId = json['guest_id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
-    if (this.customerdata != null) {
-      data['customerdata'] = this.customerdata!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
+    if (customerdata != null) {
+      data['customerdata'] = customerdata!.toJson();
     }
-    data['guest_id'] = this.guestId;
+    data['guest_id'] = guestId;
     return data;
   }
 }
@@ -65,17 +65,17 @@ class Customerdata {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['mobile'] = this.mobile;
-    data['referee'] = this.referee;
-    data['referral_code'] = this.referralCode;
-    data['status'] = this.status;
-    data['token'] = this.token;
-    data['otpverificationstatus'] = this.otpverificationstatus;
-    data['emailverificationstatus'] = this.emailverificationstatus;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['mobile'] = mobile;
+    data['referee'] = referee;
+    data['referral_code'] = referralCode;
+    data['status'] = status;
+    data['token'] = token;
+    data['otpverificationstatus'] = otpverificationstatus;
+    data['emailverificationstatus'] = emailverificationstatus;
     return data;
   }
 }
