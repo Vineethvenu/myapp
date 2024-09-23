@@ -104,16 +104,14 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                 onPressed: () {
-                                    if (loginController.phone.text.isEmpty) {
+                  if (loginController.phone.text.isEmpty) {
                     CustomToast.showCustomErrorToast(
                         message: "Phone number should not be empty");
                   } else if (loginController.password.text.isEmpty) {
                     CustomToast.showCustomErrorToast(
                         message: "Password should not be empty");
                   } else {
-                    loginController.userLoginApi().then((value) {
-              
-                    });
+                    loginController.userLoginApi().then((value) {});
                   }
                 }),
           ],

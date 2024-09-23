@@ -31,7 +31,7 @@ class LoginController extends ChangeNotifier {
         loginModel = LoginModel.fromJson(response['data']);
         notifyListeners();
         if (loginModel.success == 0) {
-          CustomToast.showCustomToast(
+          CustomToast.showCustomErrorToast(
               message: "Login Failed : ${loginModel.message ?? ''}");
           notifyListeners();
         } else if (loginModel.success == 1) {
