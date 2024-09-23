@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/core/utils/configs/styles/colors.dart';
+import 'package:myapp/features/login/controller/loginController.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
+     final _loginController = Provider.of<LoginController>(context);
     return Scaffold(
       body: Container(
         color: AppColor.whiteTxt,
@@ -23,7 +26,75 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
+               SizedBox(
+                            height: 40 / h * h,
+                            width: double.infinity,
+                            child: _customTextField(
+                              labelTxt: "Phone Number",
+                              hintTxt: "Enter phone number",
+                              controller: _loginController.phone,
+                              keyboardType: TextInputType.number,
+                              labelTxtStyle: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: "poppinsRegular",
+                                color: Colors.black,
+                              ),
+                              hintTxtStyle: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: "poppinsRegular",
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                            SizedBox(
+                            height: 5 / h * h,
+                          ),
+                          SizedBox(
+                            height: 40 / h * h,
+                            width: double.infinity,
+                            child: _customTextField(
+                              labelTxt: "Password",
+                              hintTxt: "Enter password",
+                              controller: _loginController.password,
+                              keyboardType: TextInputType.name,
+                              labelTxtStyle: const TextStyle(
+                                fontSize: 12,
+                                color: AppColor.txtColor,
+                              ),
+                              hintTxtStyle: const TextStyle(
+                                fontSize: 12,
+                                color: AppColor.txtColor,
+                              ),
+                              obscureText: _loginController.passwordVisible,
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _loginController.passwordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                ),
+                                onPressed: _loginController.toggle,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 50 / h * h,
+                          ),
+                          _customBtn(
+                              width: double.infinity,
+                              height: 35 / h * h,
+                              text: "Login",
+                              onPressed: () {
+                                if (_loginController.email.text.isEmpty) {
+                                  CustomToast.showCustomErrorToast(
+                                      message: "Email should not be empty");
+                                } else if (_loginController
+                                    .password.text.isEmpty) {
+                                  CustomToast.showCustomErrorToast(
+                                      message: "Password should not be empty");
+                                } else {
+                                  
+                                }
+                              }),
           ],
         ),
       ),
