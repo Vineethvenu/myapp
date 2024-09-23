@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/core/helpers/cache_helper/cacheHelper.dart';
 import 'package:myapp/core/utils/shared/component/widgets/customToast.dart';
 import 'package:myapp/features/login/model/loginModel.dart';
 import 'package:myapp/features/login/repository/LoginRepository.dart';
@@ -37,8 +38,12 @@ class LoginController extends ChangeNotifier {
           CustomToast.showCustomToast(
               message: "Login Successful: ${loginModel.message ?? ''}");
           notifyListeners();
-          if(loginModel.customerdata!.token != null &&  loginModel.customerdata!.token!.isNotEmpty){
-
+          if (loginModel.customerdata!.token != null &&
+              loginModel.customerdata!.token!.isNotEmpty) {
+            await CacheHelper.saveData(
+                key: 'Usertoken',
+                value: loginModel.customerdata!.token.toString());
+          }
         }
       } else if (response != null && response['status'] == 400) {
         loginModel = LoginModel.fromJson(response['data']);
